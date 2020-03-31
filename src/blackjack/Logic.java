@@ -1,6 +1,7 @@
 package blackjack;
 
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class Logic {
 	   
@@ -50,6 +51,15 @@ public class Logic {
 					   {
 					   int ca =card.drow();
 					   user[i].card.add(ca);
+					   int sum = 0;
+					   for(Integer c : user[i].card) {
+							sum=c+sum;
+						}
+					   if(sum > 21) {
+						   user[i].use = 0;
+					   }
+					   
+					   
 					   }
 				   }
 				   }
@@ -102,38 +112,49 @@ public class Logic {
 		 int usercnt = usercount();
 		 int win = -1;
 		  int winpoint = 0;
+		  
 		  if(usercnt == end) {
 			 //종료  
-			  
 			  next = -1;
 			  for (int i = 0; i < user.length; i++) {
 				  if(user[i] != null) {
 				  int sum = 0;
 				for(Integer c : user[i].card) {
 					sum=c+sum;
-					if(i==1)
+				}
+				System.out.println(i+"유저의 카드합 "+sum);
+					if(i==0)
 					{
+						if(sum < 22) {
 						win = i;
 						winpoint = sum;
+						}
 					}
 					else
 					{
-						if(winpoint < sum)
+						if(sum <22 && win == -1)
 						{
-							win = i;
-							winpoint = sum;
+							if(winpoint < sum)
+							{
+								win = i;
+								winpoint = sum;
+							}
 						}
 					}
-				}
+				
 				//최종승
 				
 				  
 				  }
 			  }
 		  }
-		  System.out.println(win+"번째 유저가 최종승 .");
+		  if(win != -1)
+			  System.out.println(win+"번째 유저가 최종승 .");
+		  else
+			  System.out.println("무승부 ");
 		 return;
 	  }
+	  
 	  public int usercount() {
 		  int usercnt = 0;
 		  for (int i = 0; i < user.length; i++) {

@@ -29,7 +29,7 @@ public class Card {
 		deck[deckidx] = 100;//뽑아간 카드들은 100으로 변
 		if(pick > 13)
 		{
-			pick = pick % 13;
+			pick = pick % 13+1;
 		}
 		
 		return pick;
